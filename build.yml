@@ -1,0 +1,30 @@
+name: CI/CD Pipeline
+on:
+  push:
+  branches:
+    -main
+jobs:
+  build
+    runs-on: ubuntu-latest
+    steps:
+      -name: Checkout code
+       uses: actions/checkout@v2
+
+      -name: set up node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      -name: Install dependencies
+       run: npm install
+
+      -name: Run tests
+        run: echo "no tests yet"
+
+      name: Build Docker image
+        run: docker build -t ${{secrets.DOCKER-USERNAME}}/aether-app
+      -name: Log in to Docker Hub
+        run: echo ${{secrets.DOCKER-PASSWORD}} | docker login -u ${{secrets.DOCKER-USERNAME}} --password-stdin
+      -name: Push Docker image
+        run: docker push ${{secrets.DOCKER-USERNAME}}/aether-app
+
