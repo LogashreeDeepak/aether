@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Run app test
-        run: echo "No tests yet"
+        run: echo "No tests yet ${{ secrets.DOCKER_USERNAME }}"
 
       - name: Build Docker image
         run: |
