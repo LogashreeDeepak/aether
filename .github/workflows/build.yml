@@ -24,6 +24,12 @@ jobs:
       - name: Run app test
         run: echo "No tests yet ${{ secrets.DOCKER_USERNAME }}"
 
+      - name: Debug IMAGE_NAME
+        env:
+          IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/aether-app
+        run: |
+          echo "IMAGE_NAME=$IMAGE_NAME"
+
       - name: Build Docker image
         env:
           IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/aether-app
@@ -36,4 +42,3 @@ jobs:
       - name: Push Docker image
         run: |
           docker push "IMAGE_NAME"
-  
